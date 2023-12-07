@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require('cors')
+const cors = require('cors');
+const { db } = require('./helpers')
 
 const routes = require('./routes');
 const app = express();
@@ -20,6 +21,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+const startServer = async () => {
+  try {
+    console.log('Connecting to Database...');
+    await db.sequelize.authenticate();
+    await db.sequelize.sync({ force: true });
+    console.log('Database connected');
+
+  } catch (error) {
+    console.log('Database Connection Error', error);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -9,14 +9,16 @@
    "refreshToken": "7d"
  },
  "database": {
-  "client": "pg",
-  "connection": "postgres://postgres:123@localhost:5432/chat_app",
+  "client": "postgres",
+  "connection": "postgres://postgres:123@localhost:5432/temp_app",
+  "host": "localhost",
+  "username": "postgres",
+  "port": 5432,
+  "password": "123",
+  "name": "temp_app",
   "pool": {
     "min": 2,
     "max": 10
-  },
-  "migrations": {
-    "tableName": "knex_migrations"
   }
 }
 }

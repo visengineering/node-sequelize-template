@@ -3,15 +3,14 @@ const config = require('config');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 const path = require('path');
-const knex = require('./Database');
+const db = require('./Database');
 const Validators = require('./Validators');
 const Exception = require('./Exception');
 const Token = require('./Token');
 
-
 module.exports = {
   jwt,
-  knex,
+  db,
   Exception,
   Validators,
   Token,

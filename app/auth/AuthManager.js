@@ -37,9 +37,6 @@ class AuthManager {
 
     user = await UserHandler.createUser(data);
 
-
-    user = user[0];
-
     user = await AuthManager.setAccessToken(user);
 
     return user;
@@ -52,7 +49,6 @@ class AuthManager {
     console.log(`login:: Request to login user. data:: `, data);
 
     AuthUtil.validateLoginRequest(data);
-
 
     let user = await UserHandler.findUserByEmail(data.email);
 
@@ -101,9 +97,9 @@ class AuthManager {
 
     const refreshToken = Token.getRefreshToken(user);
 
-    user = await UserHandler.setAccessToken(user.id, accessToken, refreshToken);
+    const [_, [updatedUser]] = await UserHandler.setAccessToken(user.id, accessToken, refreshToken);
 
-    user = UserUtil.updateUserData(user[0]);
+    user = UserUtil.updateUserData(updatedUser.toJSON());
 
     console.log(`setAccessToken:: access token of user successfully set. user:: `, user);
 
